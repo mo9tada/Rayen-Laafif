@@ -22,10 +22,21 @@ export default function About() {
             animate={{ opacity: 1, rotateY: 0, x: 0 }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
           >
-            <motion.img 
-              src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=800" 
-              alt="Professional Camera" 
-              style={{ width: '100%', borderRadius: '20px', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', y: imgY }}
+            <motion.img
+              src="/rayen-laafif.jpg"
+              alt="Rayen Laafif seated with a camera"
+              style={{
+                width: '100%',
+                display: 'block',
+                // The portrait is taller than it is wide; cap it so it does not
+                // outrun the text column beside it.
+                maxHeight: '620px',
+                objectFit: 'cover',
+                objectPosition: 'center top',
+                borderRadius: '20px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
+                y: imgY,
+              }}
               whileHover={{ scale: 1.02, rotateZ: 2 }}
               transition={{ type: 'spring', stiffness: 200 }}
             />
