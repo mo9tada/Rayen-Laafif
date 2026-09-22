@@ -25,7 +25,7 @@ export default function Contact() {
         <motion.div 
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          style={{ position: 'absolute', top: '-50%', left: '-50%', width: '200%', height: '200%', background: 'conic-gradient(from 0deg, transparent, rgba(65,105,225,0.1), transparent)', zIndex: -1 }}
+          style={{ position: 'absolute', top: '-50%', left: '-50%', width: '200%', height: '200%', background: 'conic-gradient(from 0deg, transparent, rgba(25,211,162,0.1), transparent)', zIndex: -1 }}
         />
 
         <h1 className="title" style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>Let's Work Together</h1>
@@ -35,21 +35,21 @@ export default function Contact() {
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '500px', margin: '0 auto', zIndex: 1, position: 'relative' }}>
           <motion.input 
-            whileFocus={{ scale: 1.02, borderColor: 'var(--accent)', boxShadow: '0 0 15px rgba(65,105,225,0.3)' }}
+            whileFocus={{ scale: 1.02, borderColor: 'var(--accent)', boxShadow: '0 0 15px rgba(25,211,162,0.3)' }}
             type="text" 
             placeholder="Your Name" 
             required
             style={{ padding: '1rem', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '1rem', outline: 'none', transition: 'box-shadow 0.3s' }} 
           />
           <motion.input 
-            whileFocus={{ scale: 1.02, borderColor: 'var(--accent)', boxShadow: '0 0 15px rgba(65,105,225,0.3)' }}
+            whileFocus={{ scale: 1.02, borderColor: 'var(--accent)', boxShadow: '0 0 15px rgba(25,211,162,0.3)' }}
             type="email" 
             placeholder="Your Email"
             required 
             style={{ padding: '1rem', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '1rem', outline: 'none', transition: 'box-shadow 0.3s' }} 
           />
           <motion.textarea 
-            whileFocus={{ scale: 1.02, borderColor: 'var(--accent)', boxShadow: '0 0 15px rgba(65,105,225,0.3)' }}
+            whileFocus={{ scale: 1.02, borderColor: 'var(--accent)', boxShadow: '0 0 15px rgba(25,211,162,0.3)' }}
             placeholder="Tell me about your project..." 
             rows="5"
             required
@@ -59,7 +59,7 @@ export default function Contact() {
             type="submit"
             onHoverStart={() => setIsHovering(true)}
             onHoverEnd={() => setIsHovering(false)}
-            whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(65,105,225,0.6)' }}
+            whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(25,211,162,0.6)' }}
             whileTap={{ scale: 0.95 }}
             style={{ 
               display: 'flex',

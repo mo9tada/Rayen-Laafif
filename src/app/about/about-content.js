@@ -50,7 +50,7 @@ export default function AboutContent({ skills = [] }) {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <motion.h2 
-              style={{ fontSize: '2.5rem', color: 'var(--accent)', textShadow: '0 0 20px rgba(65,105,225,0.4)' }}
+              style={{ fontSize: '2.5rem', color: 'var(--accent)', textShadow: '0 0 20px rgba(25,211,162,0.4)' }}
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
             >
               The Visionary Director
@@ -67,12 +67,12 @@ export default function AboutContent({ skills = [] }) {
                   initial={{ opacity: 0, scale: 0 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  whileHover={{ scale: 1.1, backgroundColor: 'rgba(65,105,225,0.4)', y: -5 }}
+                  whileHover={{ scale: 1.1, backgroundColor: 'rgba(25,211,162,0.4)', y: -5 }}
                   transition={{ type: "spring", stiffness: 300, delay: index * 0.05 }}
                   style={{ 
                     padding: '8px 16px', 
-                    background: 'rgba(65,105,225,0.1)', 
-                    border: '1px solid rgba(65,105,225,0.3)', 
+                    background: 'rgba(25,211,162,0.1)', 
+                    border: '1px solid rgba(25,211,162,0.3)', 
                     borderRadius: '30px',
                     fontSize: '0.9rem',
                     color: '#fff',

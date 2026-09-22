@@ -60,13 +60,13 @@ export default function Portfolio({ videos = [], error = null }) {
           className="bg-blob"
           animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          style={{ position: 'absolute', top: '10%', left: '20%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(65,105,225,0.2) 0%, transparent 60%)', filter: 'blur(60px)', zIndex: 0, y: yBg }}
+          style={{ position: 'absolute', top: '10%', left: '20%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(25,211,162,0.2) 0%, transparent 60%)', filter: 'blur(60px)', zIndex: 0, y: yBg }}
         />
         <motion.div 
           className="bg-blob"
           animate={{ scale: [1, 1.5, 1], rotate: [0, -90, 0] }}
           transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-          style={{ position: 'absolute', bottom: '10%', right: '10%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(65,105,225,0.15) 0%, transparent 60%)', filter: 'blur(50px)', zIndex: 0, y: yBg }}
+          style={{ position: 'absolute', bottom: '10%', right: '10%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(25,211,162,0.15) 0%, transparent 60%)', filter: 'blur(50px)', zIndex: 0, y: yBg }}
         />
         
         <motion.div
@@ -96,7 +96,7 @@ export default function Portfolio({ videos = [], error = null }) {
           <motion.div variants={textVariants} style={{ marginTop: '2rem' }}>
              <motion.button 
                className="hero-button"
-               whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(65,105,225,0.6)", backgroundColor: "var(--accent)" }}
+               whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(25,211,162,0.6)", backgroundColor: "var(--accent)" }}
                whileTap={{ scale: 0.95 }}
                style={{ padding: '16px 45px', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '3px', background: 'transparent', color: '#fff', border: '2px solid var(--accent)', borderRadius: '40px', cursor: 'pointer', transition: 'background-color 0.3s' }}
                onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}

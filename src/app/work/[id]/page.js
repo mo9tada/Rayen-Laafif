@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getVideos, getVideo, getRelatedVideos } from '@/lib/videos.js';
+import VideoPlayer from '@/app/video-player.js';
 
 export const revalidate = 60;
 
@@ -35,14 +36,13 @@ export default async function WorkPage({ params }) {
         ← All work
       </Link>
 
-      <div className={`work__player ${video.isReel ? 'work__player--reel' : ''}`}>
-        <iframe
-          src={video.videoUrl}
-          title={video.title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
+      <VideoPlayer
+        id={video.id}
+        title={video.title}
+        poster={video.thumb}
+        embedUrl={video.videoUrl}
+        isReel={video.isReel}
+      />
 
       <header className="work__header">
         <h1 className="work__title">{video.title}</h1>
