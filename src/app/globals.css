@@ -44,62 +44,63 @@ a {
 /* Animations and Utilities */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: 1fr;
+  gap: 3rem;
   padding: 2rem 0;
 }
 
 .video-card {
   position: relative;
-  border-radius: 16px;
+  border-radius: 0;
   overflow: hidden;
   cursor: pointer;
   aspect-ratio: 16/9;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.video-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
 }
 
 .video-thumbnail {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  display: block;
 }
 
-.video-card:hover .video-thumbnail {
-  transform: scale(1.05);
-}
+
 
 .video-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: #111;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0.35rem;
+  padding: 1.5rem;
+  text-align: center;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
 }
 
-.video-card:hover .video-overlay {
-  opacity: 1;
+.video-card:hover .video-overlay,
+.video-card:focus-visible .video-overlay {
+  opacity: 0.92;
 }
 
-.play-button {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+.video-overlay__title {
+  color: #fff;
+  font-size: clamp(1rem, 1.8vw, 1.5rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.video-overlay__meta {
+  color: #999;
+  font-size: clamp(0.8rem, 1.1vw, 1rem);
+  letter-spacing: 0.04em;
+  margin: 0;
 }
 
 .modal-overlay {
@@ -213,13 +214,6 @@ a {
     gap: 2rem !important;
     padding: 1rem 0 !important;
   }
-  .video-card {
-    border-radius: 12px !important;
-  }
-  .play-button {
-    width: 50px !important;
-    height: 50px !important;
-  }
   .about-flex {
     flex-direction: column;
     gap: 2rem !important;
@@ -259,9 +253,290 @@ a {
     font-size: 1.5rem !important;
     padding: 8px !important;
   }
-  .video-overlay h3 {
-    font-size: 1rem !important;
+  .video-overlay__title {
+    font-size: 0.95rem !important;
+  }
+  .video-overlay__meta {
+    font-size: 0.8rem !important;
   }
 }
 
 
+
+.portfolio-empty {
+  text-align: center;
+  color: #aaa;
+  padding: 4rem 1rem;
+  line-height: 1.6;
+  max-width: 34rem;
+  margin: 0 auto;
+}
+
+/* ---------------------------------------------------------- video page */
+
+.work {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 7rem 2rem 6rem;
+}
+
+.work__back {
+  display: inline-block;
+  color: #999;
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  transition: color 0.2s ease;
+}
+
+.work__back:hover {
+  color: #fff;
+}
+
+.work__player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+/* Reels are portrait, so cap the width instead of letting them tower. */
+.work__player--reel {
+  aspect-ratio: 9 / 16;
+  max-width: min(420px, calc(80vh * 9 / 16));
+  margin: 0 auto;
+}
+
+.work__player iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.work__header {
+  margin: 2.5rem 0 1.25rem;
+}
+
+.work__title {
+  font-size: clamp(1.5rem, 3.5vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.work__year {
+  color: #999;
+  margin: 0.5rem 0 0;
+  letter-spacing: 0.04em;
+}
+
+.work__description {
+  max-width: 65ch;
+  color: #ccc;
+  line-height: 1.8;
+}
+
+.work__description p {
+  margin: 0 0 1.2rem;
+}
+
+/* ------------------------------------------------------------- admin */
+
+.admin {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 7rem 1.5rem 6rem;
+}
+
+.admin--centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding-top: 2rem;
+}
+
+.admin-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.admin-header__title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.admin-header__hint {
+  margin: 0.4rem 0 0;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.admin-login {
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.admin-login__title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.admin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.admin-field__label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999;
+}
+
+.admin-field input,
+.admin-field textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 0.7rem 0.85rem;
+  color: #fff;
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+.admin-field textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.admin-field input:focus,
+.admin-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.admin-button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.65rem 1.4rem;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.admin-button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.admin-button--quiet {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.admin-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.admin-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-row__thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #222;
+}
+
+.admin-row__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.admin-row__filename {
+  margin: 0;
+  color: #777;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.admin-row__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.admin-link {
+  color: #999;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.admin-link:hover {
+  color: #fff;
+}
+
+.admin-note {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.admin-note--ok {
+  color: #5cc98a;
+}
+
+.admin-note--bad,
+.admin-error {
+  color: #e2706e;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .admin-row {
+    grid-template-columns: 1fr;
+  }
+  .admin-row__thumb {
+    max-width: 240px;
+  }
+  .work {
+    padding: 6rem 1rem 4rem;
+  }
+}

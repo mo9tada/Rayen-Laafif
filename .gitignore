@@ -27,3 +27,6 @@ pnpm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# admin-authored content, written at runtime
+/data
