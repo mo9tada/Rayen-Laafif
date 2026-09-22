@@ -81,7 +81,143 @@ function VideoRow({ video }) {
   );
 }
 
-export default function AdminDashboard({ videos = [], error = null }) {
+function SkillsEditor({ initialSkills }) {
+  const [skills, setSkills] = useState(initialSkills);
+  const [draft, setDraft] = useState('');
+  const [status, setStatus] = useState(null);
+
+  const dirty = JSON.stringify(skills) !== JSON.stringify(initialSkills);
+
+  const add = () => {
+    const skill = draft.trim();
+    if (!skill) return;
+    // Case-insensitive, matching how the store deduplicates on save.
+    if (skills.some((s) => s.toLowerCase() === skill.toLowerCase())) {
+      setStatus('That skill is already listed.');
+      return;
+    }
+    setSkills([...skills, skill]);
+    setDraft('');
+    setStatus(null);
+  };
+
+  const update = (index, value) =>
+    setSkills(skills.map((s, i) => (i === index ? value : s)));
+
+  const remove = (index) => setSkills(skills.filter((_, i) => i !== index));
+
+  const move = (index, delta) => {
+    const target = index + delta;
+    if (target < 0 || target >= skills.length) return;
+    const next = [...skills];
+    [next[index], next[target]] = [next[target], next[index]];
+    setSkills(next);
+  };
+
+  const save = async () => {
+    setStatus('saving');
+    try {
+      const response = await fetch('/api/admin/skills', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ skills }),
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        setStatus(data.error || 'Could not save.');
+        return;
+      }
+      // Adopt the cleaned list the server actually stored.
+      setSkills(data.skills);
+      setStatus('saved');
+      setTimeout(() => setStatus(null), 2500);
+    } catch {
+      setStatus('Network error.');
+    }
+  };
+
+  return (
+    <section className="admin-skills">
+      <h2 className="admin-section__title">Skills</h2>
+      <p className="admin-section__hint">Shown on the About page, in this order.</p>
+
+      <ul className="admin-skills__list">
+        {skills.map((skill, index) => (
+          <li key={index} className="admin-skills__item">
+            <input
+              value={skill}
+              onChange={(e) => update(index, e.target.value)}
+              maxLength={60}
+              aria-label={`Skill ${index + 1}`}
+            />
+            <button
+              className="admin-icon"
+              onClick={() => move(index, -1)}
+              disabled={index === 0}
+              aria-label="Move up"
+              title="Move up"
+            >
+              ↑
+            </button>
+            <button
+              className="admin-icon"
+              onClick={() => move(index, 1)}
+              disabled={index === skills.length - 1}
+              aria-label="Move down"
+              title="Move down"
+            >
+              ↓
+            </button>
+            <button
+              className="admin-icon admin-icon--danger"
+              onClick={() => remove(index)}
+              aria-label={`Remove ${skill}`}
+              title="Remove"
+            >
+              ✕
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      {skills.length === 0 && (
+        <p className="admin-note">No skills listed. The About page will omit the section.</p>
+      )}
+
+      <div className="admin-skills__add">
+        <input
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              add();
+            }
+          }}
+          placeholder="Add a skill"
+          maxLength={60}
+          aria-label="New skill"
+        />
+        <button className="admin-button admin-button--quiet" onClick={add} disabled={!draft.trim()}>
+          Add
+        </button>
+      </div>
+
+      <div className="admin-row__actions">
+        <button className="admin-button" onClick={save} disabled={!dirty || status === 'saving'}>
+          {status === 'saving' ? 'Saving…' : 'Save skills'}
+        </button>
+        {status === 'saved' && <span className="admin-note admin-note--ok">Saved</span>}
+        {status && status !== 'saved' && status !== 'saving' && (
+          <span className="admin-note admin-note--bad">{status}</span>
+        )}
+      </div>
+    </section>
+  );
+}
+
+export default function AdminDashboard({ videos = [], skills = [], error = null }) {
   const router = useRouter();
 
   const signOut = async () => {
@@ -103,6 +239,10 @@ export default function AdminDashboard({ videos = [], error = null }) {
           Sign out
         </button>
       </header>
+
+      <SkillsEditor initialSkills={skills} />
+
+      <h2 className="admin-section__title admin-section__title--spaced">Videos</h2>
 
       {error && <p className="admin-error">{error}</p>}
       {!error && videos.length === 0 && <p className="admin-note">No videos in the Drive folder.</p>}

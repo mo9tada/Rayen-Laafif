@@ -607,3 +607,112 @@ a {
     margin-top: 3.5rem;
   }
 }
+
+/* --------------------------------------------------- admin: skills */
+
+.admin-section__title {
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #999;
+  margin: 0 0 0.35rem;
+}
+
+.admin-section__title--spaced {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.admin-section__hint {
+  margin: 0 0 1.25rem;
+  color: #777;
+  font-size: 0.85rem;
+}
+
+.admin-skills__list {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin-skills__item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.admin-skills__item input {
+  flex: 1;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 0.55rem 0.75rem;
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.admin-skills__item input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.admin-icon {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: #bbb;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.admin-icon:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.admin-icon:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.admin-icon--danger:hover:not(:disabled) {
+  border-color: #e2706e;
+  color: #e2706e;
+}
+
+.admin-skills__add {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-skills__add input {
+  flex: 1;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 0.55rem 0.75rem;
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.admin-skills__add input:focus {
+  outline: none;
+  border-color: var(--accent);
+}

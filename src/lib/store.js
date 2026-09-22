@@ -76,3 +76,74 @@ export function applyEntries(videos, entries) {
     };
   });
 }
+
+/* ----------------------------------------------------------------- skills */
+
+const SKILLS_FILE = process.env.ADMIN_SKILLS_FILE
+  ? path.resolve(process.env.ADMIN_SKILLS_FILE)
+  : path.join(process.cwd(), 'data', 'skills.json');
+
+/** Shown until the admin saves a list of their own. */
+export const DEFAULT_SKILLS = [
+  'Cinematography',
+  'Color Grading',
+  'Lighting Design',
+  'Premiere Pro',
+  'Drone Piloting',
+  'VFX & Motion',
+  'Directing',
+  'Sound Design',
+];
+
+const MAX_SKILLS = 40;
+const MAX_SKILL_LENGTH = 60;
+
+/** Trims, drops blanks and duplicates, and caps length and count. */
+function cleanSkills(input) {
+  if (!Array.isArray(input)) return null;
+
+  const seen = new Set();
+  const out = [];
+  for (const raw of input) {
+    if (typeof raw !== 'string') continue;
+    const skill = raw.trim().slice(0, MAX_SKILL_LENGTH);
+    if (!skill) continue;
+    const key = skill.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(skill);
+    if (out.length >= MAX_SKILLS) break;
+  }
+  return out;
+}
+
+/**
+ * The saved skill list.
+ *
+ * A missing file means the admin has never saved, so the defaults stand. An
+ * empty file means they deliberately removed every skill, which is honoured.
+ */
+export async function readSkills() {
+  try {
+    const raw = await fs.readFile(SKILLS_FILE, 'utf8');
+    const cleaned = cleanSkills(JSON.parse(raw));
+    return cleaned === null ? DEFAULT_SKILLS : cleaned;
+  } catch (error) {
+    if (error.code === 'ENOENT') return DEFAULT_SKILLS;
+    console.error('[store] Could not read', SKILLS_FILE, error);
+    return DEFAULT_SKILLS;
+  }
+}
+
+/** Replaces the whole list. Returns what was actually stored after cleaning. */
+export async function writeSkills(skills) {
+  const cleaned = cleanSkills(skills);
+  if (cleaned === null) throw new Error('Skills must be an array of strings');
+
+  await fs.mkdir(path.dirname(SKILLS_FILE), { recursive: true });
+  const tmp = `${SKILLS_FILE}.${process.pid}.tmp`;
+  await fs.writeFile(tmp, JSON.stringify(cleaned, null, 2), 'utf8');
+  await fs.rename(tmp, SKILLS_FILE);
+
+  return cleaned;
+}
