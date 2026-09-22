@@ -18,3 +18,23 @@ export async function getVideo(id) {
   const { videos } = await getVideos();
   return videos.find((video) => video.id === id) || null;
 }
+
+/**
+ * Other videos to suggest alongside `id`.
+ *
+ * Deliberately deterministic: it takes the entries that follow the current one
+ * and wraps around the end. Every video therefore gets a different set, the
+ * result is stable across builds (these pages are statically generated), and
+ * no video suggests itself.
+ */
+export async function getRelatedVideos(id, limit = 3) {
+  const { videos } = await getVideos();
+  const index = videos.findIndex((video) => video.id === id);
+  if (index === -1) return [];
+
+  const others = [];
+  for (let step = 1; step < videos.length && others.length < limit; step += 1) {
+    others.push(videos[(index + step) % videos.length]);
+  }
+  return others;
+}

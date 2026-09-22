@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getVideos, getVideo } from '@/lib/videos.js';
+import { getVideos, getVideo, getRelatedVideos } from '@/lib/videos.js';
 
 export const revalidate = 60;
 
@@ -26,6 +26,8 @@ export default async function WorkPage({ params }) {
   const video = await getVideo(id);
 
   if (!video) notFound();
+
+  const related = await getRelatedVideos(id);
 
   return (
     <main className="work">
@@ -55,6 +57,28 @@ export default async function WorkPage({ params }) {
           ))}
         </div>
       ) : null}
+
+      {related.length > 0 && (
+        <section className="related">
+          <h2 className="related__heading">You may also like</h2>
+
+          <div className="related__grid">
+            {related.map((other) => (
+              <Link key={other.id} href={`/work/${other.id}`} className="related__card">
+                <img
+                  className="related__thumb"
+                  src={other.thumb}
+                  alt=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+                <h3 className="related__title">{other.title}</h3>
+                {other.year && <p className="related__year">{other.year}</p>}
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </main>
   );
 }
