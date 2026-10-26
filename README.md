@@ -4,6 +4,8 @@
 ![React](https://img.shields.io/badge/React_19-20232a?logo=react&logoColor=61DAFB)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?logo=framer&logoColor=white)
 
+**Live:** [rayen-laafif.vercel.app](https://rayen-laafif.vercel.app)
+
 A portfolio website I built for Rayen Laafif, a cinematographer and director. Films are streamed straight from his Google Drive, so he publishes new work without touching the code, and a private dashboard lets him edit descriptions and skills.
 
 ## Features
