@@ -8,6 +8,8 @@
 
 A portfolio website I built for Rayen Laafif, a cinematographer and director. Films are streamed straight from his Google Drive, so he publishes new work without touching the code, and a private dashboard lets him edit descriptions and skills.
 
+![Rayen Laafif portfolio home](docs/home.jpg)
+
 ## Features
 
 - **Showreel-first design** with cinematic page transitions (Framer Motion)
